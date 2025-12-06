@@ -1,7 +1,9 @@
 package com.inyomanw.instaapp.data.repository
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.inyomanw.instaapp.data.model.Post
+import com.inyomanw.instaapp.data.source.LikeCommentDataSource
 import com.inyomanw.instaapp.data.source.PostDataSource
 import com.inyomanw.instaapp.domain.common.UiState
 import com.inyomanw.instaapp.domain.model.PostDomain
@@ -11,7 +13,9 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
-    private val dataSource: PostDataSource
+    private val postDataSource: PostDataSource,
+    private val likeCommentDataSource: LikeCommentDataSource,
+    private val auth: FirebaseAuth
 ) : PostRepository {
 
     private var lastDocument: DocumentSnapshot? = null
@@ -20,12 +24,19 @@ class PostRepositoryImpl @Inject constructor(
         try {
             emit(UiState.Loading)
 
-            val (posts, lastDoc) = dataSource.getAllPosts(limit, lastDocument)
+            val currentUserId = auth.currentUser?.uid ?: ""
+            val (posts, lastDoc) = postDataSource.getAllPosts(limit, lastDocument)
             lastDocument = lastDoc
 
-            val postsDomain = posts.map { it.toDomain() }
+            val postsWithLikes = posts.map { post ->
+                val isLiked = if (currentUserId.isNotEmpty()) {
+                    likeCommentDataSource.isPostLikedByUser(post.postId, currentUserId)
+                } else false
 
-            emit(UiState.Success(postsDomain))
+                post.toDomain(isLiked)
+            }
+
+            emit(UiState.Success(postsWithLikes))
         } catch (e: Exception) {
             emit(UiState.Error("Failed to fetch posts: ${e.message}", e))
         }
@@ -41,7 +52,7 @@ class PostRepositoryImpl @Inject constructor(
         try {
             emit(UiState.Loading)
 
-            val imageUrl = dataSource.uploadImage(userId, imageBytes)
+            val imageUrl = postDataSource.uploadImage(userId, imageBytes)
 
             val post = Post(
                 userId = userId,
@@ -53,16 +64,16 @@ class PostRepositoryImpl @Inject constructor(
                 commentsCount = 0
             )
 
-            val postId = dataSource.createPost(post)
+            val postId = postDataSource.createPost(post)
             val createdPost = post.copy(postId = postId)
 
-            emit(UiState.Success(createdPost.toDomain()))
+            emit(UiState.Success(createdPost.toDomain(false)))
         } catch (e: Exception) {
             emit(UiState.Error("Failed to create post: ${e.message}", e))
         }
     }
 
-    private fun Post.toDomain() = PostDomain(
+    private fun Post.toDomain(isLiked: Boolean) = PostDomain(
         postId = postId,
         userId = userId,
         userName = userName,
@@ -71,6 +82,7 @@ class PostRepositoryImpl @Inject constructor(
         caption = caption,
         likesCount = likesCount,
         commentsCount = commentsCount,
-        createdAt = createdAt?.time ?: 0L
+        createdAt = createdAt?.time ?: 0L,
+        isLikedByCurrentUser = isLiked
     )
 }

@@ -9,5 +9,6 @@ data class PostDomain(
     val caption: String,
     val likesCount: Int,
     val commentsCount: Int,
-    val createdAt: Long
+    val createdAt: Long,
+    val isLikedByCurrentUser: Boolean = false
 )

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt.library)
     alias(libs.plugins.ksp.library)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.safeargs.kotlin)
 }
 
 android {

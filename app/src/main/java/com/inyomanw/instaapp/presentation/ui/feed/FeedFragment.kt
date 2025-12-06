@@ -14,11 +14,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.inyomanw.instaapp.R
 import com.inyomanw.instaapp.databinding.FragmentFeedBinding
 import com.inyomanw.instaapp.domain.common.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -28,6 +30,9 @@ class FeedFragment : Fragment() {
 
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var postsAdapter: PostsAdapter
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +53,16 @@ class FeedFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        postsAdapter = PostsAdapter()
+        postsAdapter = PostsAdapter(
+            onLikeClick = { post, position ->
+                val currentUserId = auth.currentUser?.uid ?: return@PostsAdapter
+                viewModel.toggleLike(post.postId, currentUserId, position)
+            },
+            onCommentClick = { post ->
+                val action = FeedFragmentDirections.actionFeedFragmentToCommentsFragment(post.postId)
+                findNavController().navigate(action)
+            }
+        )
 
         binding.rvPosts.apply {
             adapter = postsAdapter

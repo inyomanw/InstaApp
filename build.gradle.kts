@@ -7,5 +7,6 @@ plugins {
     alias(libs.plugins.hilt.library) apply false
     alias(libs.plugins.ksp.library) apply false
     alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.safeargs.kotlin) apply false
 
 }

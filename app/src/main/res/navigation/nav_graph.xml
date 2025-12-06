@@ -41,11 +41,23 @@
         <action
             android:id="@+id/action_feedFragment_to_createPostFragment"
             app:destination="@id/createPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_commentsFragment"
+            app:destination="@id/commentsFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/createPostFragment"
         android:name="com.inyomanw.instaapp.presentation.ui.createpost.CreatePostFragment"
         android:label="Create Post" />
+
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.inyomanw.instaapp.presentation.ui.comments.CommentsFragment"
+        android:label="Comments">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
