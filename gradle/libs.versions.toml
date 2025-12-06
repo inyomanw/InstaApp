@@ -12,20 +12,18 @@ constraintlayout = "2.2.1"
 
 lifecycleViewmodel = "2.9.1"
 ksp = "2.0.21-1.0.28"
-coil = "2.5.0"
 hilt = "2.56.2"
-gson = '2.11.0'
-retrofit = '2.9.0'
-okhttp = '4.11.0'
 coroutinesCore = '1.7.3'
 coroutinesAndroid = '1.7.3'
 lifecycle = '2.2.0'
-chucker = '4.0.0'
 pagingVersion = "3.3.6"
 navigationFragment = "2.7.7"
 firebaseBom = "33.1.2"
 playServicesAuth = "21.2.0"
 credentialsManager = "1.2.2"
+
+glide = "4.16.0"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,18 +38,8 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 lifecycle-extensions = { group = "androidx.lifecycle", name ="lifecycle-extensions", version.ref = "lifecycle"}
 lifecycle-viewmodel = { group = "androidx.lifecycle", name ="lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodel"}
 
-chucker = {group = "com.github.chuckerteam.chucker", name ="library", version.ref= "chucker"}
-coil = { group = "io.coil-kt", name ="coil-compose", version.ref = "coil"}
-
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-
-gson = { group = "com.google.code.gson", name ="gson", version.ref = "gson"}
-retrofit = { group = "com.squareup.retrofit2", name ="retrofit", version.ref = "retrofit"}
-retrofit-converter = { group = "com.squareup.retrofit2", name ="converter-gson", version.ref = "retrofit"}
-okhttp = { group = "com.squareup.okhttp3", name ="okhttp", version.ref = "okhttp"}
-okhttp-urlconnection = { group = "com.squareup.okhttp3", name ="okhttp-urlconnection", version.ref = "okhttp"}
-okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name ="logging-interceptor", version.ref = "okhttp"}
 
 coroutines-core = { group = "org.jetbrains.kotlinx", name ="kotlinx-coroutines-core", version.ref = "coroutinesCore"}
 coroutines-android = { group = "org.jetbrains.kotlinx", name ="kotlinx-coroutines-android", version.ref = "coroutinesAndroid"}
@@ -66,12 +54,16 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-storage = { group ="com.google.firebase", name = "firebase-storage"}
 
 # Google Sign-In
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 credentials-manager = { group = "androidx.credentials", name = "credentials", version.ref = "credentialsManager" }
 credentials-play-services = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentialsManager" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version = "1.1.1" }
+
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

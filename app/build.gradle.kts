@@ -49,25 +49,16 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    implementation(libs.gson)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.urlconnection)
-    implementation(libs.okhttp.logging.interceptor)
-
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
 
     implementation(libs.lifecycle.extensions)
     implementation(libs.lifecycle.viewmodel)
 
-    implementation(libs.coil)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
     implementation(libs.paging.runtime)
-    debugImplementation(libs.chucker)
 
     // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -77,12 +68,16 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
 
     // Google Sign-In
     implementation(libs.play.services.auth)
     implementation(libs.credentials.manager)
     implementation(libs.credentials.play.services)
     implementation(libs.googleid)
+
+    implementation(libs.glide)
+    implementation(libs.androidx.swiperefreshlayout)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

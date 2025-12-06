@@ -68,7 +68,7 @@ class RegisterFragment : Fragment() {
                             isLoading(false)
                             Toast.makeText(requireContext(), "Registration successful!",
                                 Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                            findNavController().navigate(R.id.action_registerFragment_to_feedFragment)
                         }
                         is UiState.Error -> {
                             isLoading(false)

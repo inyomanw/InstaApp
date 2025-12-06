@@ -136,7 +136,7 @@ class LoginFragment : Fragment() {
                             isLoading(false)
                             Toast.makeText(requireContext(), "Login successful!",
                                 Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
                         }
                         is UiState.Error -> {
                             isLoading(false)
